@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mayank Weds Riya — 2nd December 2026</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Great+Vibes&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-script">M &amp; R</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- GOLD PARTICLES CANVAS -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- MUSIC TOGGLE -->
+<div id="music-note" title="Toggle music">
+  <svg id="music-icon-playing" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+</div>
+
+<!-- HIDDEN AUDIO -->
+<audio id="bg-music" loop preload="none">
+  <source src="/music.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 — HERO VIDEO
+════════════════════════════════════════════════ -->
+<section id="hero">
+
+  <video id="hero-video" src="/video.mp4" playsinline muted preload="metadata" poster="/poster.jpg"></video>
+
+  <!-- TAP OVERLAY -->
+  <div id="tap-overlay">
+    <!-- Corner accents -->
+    <div class="tap-corner tl"></div>
+    <div class="tap-corner tr"></div>
+    <div class="tap-corner bl"></div>
+    <div class="tap-corner br"></div>
+
+    <!-- Animated rings + button -->
+    <div class="tap-ring-wrap">
+      <div class="tap-ring"></div>
+      <div class="tap-ring"></div>
+      <div class="tap-ring"></div>
+      <div class="tap-btn">
+        <span class="tap-icon">▶</span>
+      </div>
+    </div>
+    <div class="tap-label">Tap to Begin</div>
+  </div>
+
+  <!-- Scroll hint after tap -->
+  <div id="hero-scroll-cue" style="position: absolute; z-index: 5; bottom: 30px; left: 0; right: 0; text-align: center; opacity: 0; transition: opacity 1s ease; pointer-events: none;">
+    <div style="font-family: var(--ff-caps); font-size: 10px; letter-spacing: 4px; color: var(--gold-light); text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 8px;">Scroll to Explore</div>
+    <div style="width: 2px; height: 35px; background: linear-gradient(to bottom, var(--gold-light), transparent); margin: 0 auto; animation: scrollDrop 1.6s ease-in-out infinite;"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 — NAMES
+════════════════════════════════════════════════ -->
+<section id="names-section">
+
+  <!-- Flower decorations -->
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation (1).png" alt="" class="flower-deco flower-rose-single flower-tl flower-float" aria-hidden="true" />
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation (1).png" alt="" class="flower-deco flower-rose-single flower-tr flower-float flower-float-delay" aria-hidden="true" />
+
+  <div class="floral-divider reveal up">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.9">
+        <!-- center diamond -->
+        <polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/>
+        <circle cx="30" cy="15" r="2.5" fill="#C9A84C"/>
+        <!-- left flourish -->
+        <path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+        <!-- right flourish -->
+        <path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+        <!-- small dots -->
+        <circle cx="4"  cy="15" r="1.5" fill="#C9A84C" opacity="0.6"/>
+        <circle cx="56" cy="15" r="1.5" fill="#C9A84C" opacity="0.6"/>
+        <!-- stem lines -->
+        <line x1="14" y1="10" x2="14" y2="20" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+        <line x1="46" y1="10" x2="46" y2="20" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+      </g>
+    </svg>
+    <div class="line"></div>
+  </div>
+
+  <p class="pre-label reveal up reveal-delay-1">Together with their families</p>
+
+  <div class="couple-script shimmer-text reveal scale reveal-delay-2">Mayank</div>
+  <span class="ampersand reveal scale reveal-delay-3">&amp;</span>
+  <div class="couple-script shimmer-text reveal scale reveal-delay-2">Riya</div>
+
+  <p class="wedding-date reveal up reveal-delay-4">2nd December 2026 &nbsp;•&nbsp; 10:00 PM</p>
+
+  <div class="floral-divider reveal up" style="margin-top:40px;">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.9">
+        <polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/>
+        <circle cx="30" cy="15" r="2.5" fill="#C9A84C"/>
+        <path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+        <path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+        <circle cx="4"  cy="15" r="1.5" fill="#C9A84C" opacity="0.6"/>
+        <circle cx="56" cy="15" r="1.5" fill="#C9A84C" opacity="0.6"/>
+      </g>
+    </svg>
+    <div class="line"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 — COUNTDOWN
+════════════════════════════════════════════════ -->
+<section id="countdown-section">
+
+  <!-- Flower decorations -->
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation.png" alt="" class="flower-deco flower-rose-branch flower-bl flower-float" aria-hidden="true" />
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation.png" alt="" class="flower-deco flower-rose-branch flower-tr flower-float flower-float-delay" aria-hidden="true" />
+
+  <p class="section-subheading reveal up">the big day arrives in</p>
+  <h2 class="section-heading reveal up reveal-delay-1">Counting Down</h2>
+
+  <div class="floral-divider reveal up reveal-delay-2">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none"><g opacity="0.8"><polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="30" cy="15" r="2.5" fill="#C9A84C"/><path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/><path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/></g></svg>
+    <div class="line"></div>
+  </div>
+
+  <div id="timer-scratch-wrap" class="timer-scratch-wrap reveal scale reveal-delay-3">
+    <div class="timer-grid">
+
+      <!-- DAYS -->
+      <div class="timer-card">
+        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
+        <span class="timer-num" id="t-days">000</span>
+        <span class="timer-label">Days</span>
+      </div>
+
+      <!-- HOURS -->
+      <div class="timer-card">
+        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
+        <span class="timer-num" id="t-hours">00</span>
+        <span class="timer-label">Hours</span>
+      </div>
+
+      <!-- MINUTES -->
+      <div class="timer-card">
+        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
+        <span class="timer-num" id="t-mins">00</span>
+        <span class="timer-label">Minutes</span>
+      </div>
+
+      <!-- SECONDS -->
+      <div class="timer-card">
+        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
+        <span class="timer-num" id="t-secs">00</span>
+        <span class="timer-label">Seconds</span>
+      </div>
+
+    </div>
+    <p class="scratch-hint" id="scratch-hint">✦ Scratch to reveal ✦</p>
+  </div>
+
+  <div class="floral-divider reveal up" style="margin-top:40px;">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none"><g opacity="0.8"><polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="30" cy="15" r="2.5" fill="#C9A84C"/><path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/><path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/></g></svg>
+    <div class="line"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4 — EVENT ITINERARY
+════════════════════════════════════════════════ -->
+<section id="itinerary-section">
+
+  <!-- Flower decorations -->
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation (1).png" alt="" class="flower-deco flower-rose-single flower-cl flower-float" aria-hidden="true" />
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation (1).png" alt="" class="flower-deco flower-rose-single flower-cr flower-float flower-float-delay" aria-hidden="true" />
+
+  <p class="section-subheading reveal up">join us for</p>
+  <h2 class="section-heading reveal up reveal-delay-1">The Celebrations</h2>
+
+  <div class="floral-divider reveal up reveal-delay-2">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none"><g opacity="0.8"><polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="30" cy="15" r="2.5" fill="#C9A84C"/><path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/><path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/></g></svg>
+    <div class="line"></div>
+  </div>
+
+  <div class="timeline-wrap reveal-delay-1">
+
+    <!-- DAY 1 -->
+    <div class="timeline-day">
+      <div class="timeline-day-label reveal up">December 1, 2026</div>
+
+      <!-- Haldi -->
+      <div class="timeline-event">
+        <div class="event-side">
+          <div class="event-name">Haldi Ceremony</div>
+          <div class="event-time">12:00 PM</div>
+        </div>
+        <div class="event-dot-wrap">
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-side">
+          <div class="event-tag">Auspicious Haldi</div>
+        </div>
+      </div>
+
+      <!-- Sangeet -->
+      <div class="timeline-event">
+        <div class="event-side">
+          <div class="event-tag" style="text-align:right;">Musical Night</div>
+        </div>
+        <div class="event-dot-wrap">
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-side" style="text-align:left;">
+          <div class="event-name">Sangeet Sandhya</div>
+          <div class="event-time">07:00 PM</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="timeline-day">
+      <div class="timeline-day-label reveal up">December 2, 2026</div>
+
+      <!-- Tilak -->
+      <div class="timeline-event">
+        <div class="event-side">
+          <div class="event-name">Tilak Ceremony</div>
+          <div class="event-time">12:00 PM</div>
+        </div>
+        <div class="event-dot-wrap">
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-side">
+          <div class="event-tag">Sacred Rituals</div>
+        </div>
+      </div>
+
+      <!-- Barat -->
+      <div class="timeline-event">
+        <div class="event-side">
+          <div class="event-tag" style="text-align:right;">Royal Procession</div>
+        </div>
+        <div class="event-dot-wrap">
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-side" style="text-align:left;">
+          <div class="event-name">Barat &amp; Varmala</div>
+          <div class="event-time">07:00 PM</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EVENT CARDS GRID -->
+  <div class="event-cards-wrap">
+
+    <div class="event-card reveal up reveal-delay-1">
+      <div class="event-card-ornament">✦ ✧ ✦</div>
+      <div class="event-card-name">Haldi</div>
+      <div class="event-card-date">1st December</div>
+      <div class="event-card-time">12:00 PM</div>
+    </div>
+
+    <div class="event-card reveal up reveal-delay-2">
+      <div class="event-card-ornament">✦ ✧ ✦</div>
+      <div class="event-card-name">Sangeet</div>
+      <div class="event-card-date">1st December</div>
+      <div class="event-card-time">07:00 PM</div>
+    </div>
+
+    <div class="event-card reveal up reveal-delay-3">
+      <div class="event-card-ornament">✦ ✧ ✦</div>
+      <div class="event-card-name">Tilak</div>
+      <div class="event-card-date">2nd December</div>
+      <div class="event-card-time">12:00 PM</div>
+    </div>
+
+    <div class="event-card reveal up reveal-delay-4">
+      <div class="event-card-ornament">✦ ✧ ✦</div>
+      <div class="event-card-name">Barat</div>
+      <div class="event-card-date">2nd December</div>
+      <div class="event-card-time">07:00 PM</div>
+    </div>
+
+  </div>
+
+  <div class="floral-divider reveal up" style="margin-top:48px;">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none"><g opacity="0.8"><polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="30" cy="15" r="2.5" fill="#C9A84C"/><path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/><path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/></g></svg>
+    <div class="line"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5 — VENUE
+════════════════════════════════════════════════ -->
+<section id="venue-section">
+
+  <!-- Flower decorations -->
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation.png" alt="" class="flower-deco flower-rose-branch flower-bl flower-float flower-float-delay" aria-hidden="true" />
+  <img src="/Assests/Pink Red Flower Bordered Wedding Invitation.png" alt="" class="flower-deco flower-rose-branch flower-br flower-float" style="transform: rotate(15deg) scaleY(-1);" aria-hidden="true" />
+
+  <p class="section-subheading reveal up">where love meets grandeur</p>
+  <h2 class="section-heading reveal up reveal-delay-1">The Venue</h2>
+
+  <div class="floral-divider reveal up reveal-delay-2">
+    <div class="line"></div>
+    <svg viewBox="0 0 60 30" fill="none"><g opacity="0.8"><polygon points="30,4 34,15 30,26 26,15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="30" cy="15" r="2.5" fill="#C9A84C"/><path d="M4,15 C10,8 18,10 24,15 C18,20 10,22 4,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/><path d="M56,15 C50,8 42,10 36,15 C42,20 50,22 56,15Z" fill="none" stroke="#C9A84C" stroke-width="0.8"/></g></svg>
+    <div class="line"></div>
+  </div>
+
+  <div class="venue-card reveal scale reveal-delay-3">
+    <!-- corner ornaments -->
+    <div class="corner tl" style="position:absolute;top:12px;left:12px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M0,24 L0,0 L24,0" stroke="#C9A84C" stroke-width="1" opacity="0.4"/><circle cx="0" cy="0" r="3" fill="#C9A84C" opacity="0.3"/></svg>
+    </div>
+    <div class="corner tr" style="position:absolute;top:12px;right:12px;">
+      <svg viewBox="0 0 24 24" fill="none" style="transform:scaleX(-1)"><path d="M0,24 L0,0 L24,0" stroke="#C9A84C" stroke-width="1" opacity="0.4"/><circle cx="0" cy="0" r="3" fill="#C9A84C" opacity="0.3"/></svg>
+    </div>
+    <div class="corner bl" style="position:absolute;bottom:12px;left:12px;">
+      <svg viewBox="0 0 24 24" fill="none" style="transform:scaleY(-1)"><path d="M0,24 L0,0 L24,0" stroke="#C9A84C" stroke-width="1" opacity="0.4"/><circle cx="0" cy="0" r="3" fill="#C9A84C" opacity="0.3"/></svg>
+    </div>
+    <div class="corner br" style="position:absolute;bottom:12px;right:12px;">
+      <svg viewBox="0 0 24 24" fill="none" style="transform:scale(-1)"><path d="M0,24 L0,0 L24,0" stroke="#C9A84C" stroke-width="1" opacity="0.4"/><circle cx="0" cy="0" r="3" fill="#C9A84C" opacity="0.3"/></svg>
+    </div>
+
+    <div class="venue-icon-svg">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="venue-name">Hotel Ragav Regency</div>
+    <div class="venue-sub">Venue of the Celebrations</div>
+
+    <a class="map-btn" href="https://maps.app.goo.gl/JzHgCgdTn8whuqjR8" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+        <circle cx="12" cy="9" r="2.5" fill="#C9A84C"/>
+      </svg>
+      Get Directions
+    </a>
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-script">Mayank &amp; Riya</div>
+  <p>2nd December 2026 &nbsp;•&nbsp; With Love &amp; Joy</p>
+  <br/>
+  <p style="margin-top:12px; opacity:0.5; font-size:8px; letter-spacing:1px;">Made with ♥ for a Beautiful Beginning</p>
+</footer>
+
+<script type="module" src="/src/main.js"></script>
+
+</body>
+</html>

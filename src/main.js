@@ -1,0 +1,404 @@
+import './style.css';
+
+/* ========================================
+   LOADER
+======================================== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+  }, 1200);
+});
+
+/* ========================================
+   GOLD PARTICLES
+======================================== */
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x    = Math.random() * W;
+      this.y    = Math.random() * H;
+      this.r    = Math.random() * 1.5 + 0.3;
+      this.vx   = (Math.random() - 0.5) * 0.3;
+      this.vy   = -(Math.random() * 0.4 + 0.1);
+      this.life = 0;
+      this.maxLife = Math.random() * 200 + 100;
+      this.alpha = 0;
+    }
+    update() {
+      this.x    += this.vx;
+      this.y    += this.vy;
+      this.life++;
+      const p  = this.life / this.maxLife;
+      this.alpha = p < 0.2 ? p / 0.2 : p > 0.8 ? (1 - p) / 0.2 : 1;
+      if (this.life >= this.maxLife || this.y < -10) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.alpha * 0.6;
+      ctx.fillStyle   = '#C9A84C';
+      ctx.shadowBlur  = 6;
+      ctx.shadowColor = '#E8C97A';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) {
+    const p = new Particle();
+    p.life = Math.random() * p.maxLife;
+    particles.push(p);
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+
+/* ========================================
+   ROSE PETALS (Ambient & Scratch Shower)
+======================================== */
+function spawnPetal(customX, customY, isGold) {
+  const el = document.createElement('div');
+  el.className = 'petal' + (isGold ? ' gold' : '');
+  const startX = customX !== undefined ? customX : Math.random() * 100;
+  const startY = customY !== undefined ? customY : -30;
+  const duration = Math.random() * 3 + 3.5;
+  const drift = (Math.random() - 0.5) * 160 + 'px';
+  const rot = (Math.random() * 720 - 360) + 'deg';
+  
+  el.style.left = (customX !== undefined ? startX + 'px' : startX + 'vw');
+  el.style.top = startY + 'px';
+  el.style.setProperty('--drift', drift);
+  el.style.setProperty('--rot', rot);
+  el.style.animationDuration = duration + 's';
+  
+  document.body.appendChild(el);
+  setTimeout(() => {
+    el.remove();
+  }, duration * 1000);
+}
+
+// Background gentle ambient petals
+(function initAmbientPetals() {
+  setInterval(() => {
+    if (Math.random() > 0.4) {
+      spawnPetal(undefined, -30, Math.random() > 0.85);
+    }
+  }, 1200);
+})();
+
+// Petal burst function for user scratch
+function triggerPetalShower(originX, originY, count = 12) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const offsetX = originX + (Math.random() - 0.5) * 80;
+      const offsetY = originY + (Math.random() - 0.5) * 40;
+      spawnPetal(offsetX, offsetY, Math.random() > 0.75);
+    }, i * 40);
+  }
+}
+
+
+/* ========================================
+   TAP / VIDEO INTERACTION
+======================================== */
+const video      = document.getElementById('hero-video');
+const tapOverlay = document.getElementById('tap-overlay');
+const heroNames  = document.getElementById('hero-names');
+const music      = document.getElementById('bg-music');
+const musicNote  = document.getElementById('music-note');
+
+let started = false;
+
+tapOverlay.addEventListener('click', startExperience);
+tapOverlay.addEventListener('touchend', e => { e.preventDefault(); startExperience(); });
+
+function startExperience() {
+  if (started) return;
+  started = true;
+
+  // play video — pause on last frame
+  video.muted = false;
+  video.play().catch(() => { video.muted = true; video.play(); });
+  video.classList.add('playing');
+
+  // When video ends, pause on last frame and show names
+  video.addEventListener('ended', () => {
+    // Seek to just before end to freeze the last frame
+    if (video.duration) {
+      video.currentTime = video.duration - 0.01;
+    }
+    video.classList.add('ended');
+  });
+
+  // hide overlay with fade
+  tapOverlay.style.transition = 'opacity 0.6s ease';
+  tapOverlay.style.opacity    = '0';
+  setTimeout(() => {
+    tapOverlay.classList.add('hidden');
+    tapOverlay.style.display = 'none';
+  }, 700);
+
+  // show scroll hint
+  setTimeout(() => {
+    const cue = document.getElementById('hero-scroll-cue');
+    if (cue) cue.style.opacity = '1';
+  }, 1000);
+
+  // start music
+  music.volume = 0;
+  music.play().then(() => {
+    fadeAudio(music, 0, 0.5, 2000);
+    musicNote.classList.add('show');
+    musicNote.classList.add('playing');
+  }).catch(() => {});
+}
+
+// music toggle
+musicNote.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    musicNote.classList.add('playing');
+    musicNote.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>';
+  } else {
+    music.pause();
+    musicNote.classList.remove('playing');
+    musicNote.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l4.27 4.27L19.54 18 4.27 3zM12 7V3h6v4h-6z"/></svg>';
+  }
+});
+
+function fadeAudio(audio, from, to, duration) {
+  const steps = 30;
+  const step  = (to - from) / steps;
+  let   val   = from;
+  const id    = setInterval(() => {
+    val = Math.min(to, Math.max(0, val + step));
+    audio.volume = val;
+    if (Math.abs(val - to) < 0.01) clearInterval(id);
+  }, duration / steps);
+}
+
+
+/* ========================================
+   COUNTDOWN TIMER — target: 2 Dec 2026 10 PM IST
+======================================== */
+// IST = UTC+5:30
+const TARGET = new Date('2026-12-02T22:00:00+05:30').getTime();
+
+const tDays  = document.getElementById('t-days');
+const tHours = document.getElementById('t-hours');
+const tMins  = document.getElementById('t-mins');
+const tSecs  = document.getElementById('t-secs');
+
+let prevValues = {};
+
+function pad(n, len = 2) { return String(n).padStart(len, '0'); }
+
+function updateTimer() {
+  const now  = Date.now();
+  const diff = Math.max(0, TARGET - now);
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000)  / 60000);
+  const s = Math.floor((diff % 60000)    / 1000);
+
+  const vals = {
+    days:  pad(d, 3),
+    hours: pad(h),
+    mins:  pad(m),
+    secs:  pad(s)
+  };
+
+  function setNum(el, key) {
+    if (vals[key] !== prevValues[key]) {
+      el.textContent = vals[key];
+      el.classList.remove('flip');
+      void el.offsetWidth;
+      el.classList.add('flip');
+      prevValues[key] = vals[key];
+    }
+  }
+
+  setNum(tDays,  'days');
+  setNum(tHours, 'hours');
+  setNum(tMins,  'mins');
+  setNum(tSecs,  'secs');
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
+
+
+/* ========================================
+   SCRATCH-REVEAL CARDS (Royal Gilded Foil & Petal Shower)
+======================================== */
+document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
+  const card  = canvas.parentElement;
+  const rect  = () => card.getBoundingClientRect();
+  const ctx   = canvas.getContext('2d');
+  let drawing = false;
+  let cleared = false;
+  let lastPetalTime = 0;
+
+  function initScratch() {
+    const r = rect();
+    const w = r.width || 90;
+    const h = r.height || 80;
+    canvas.width = w;
+    canvas.height = h;
+
+    // Royal Deep Wine Velvet Foil Base
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0,   '#3A040A');
+    grad.addColorStop(0.3, '#700D1A');
+    grad.addColorStop(0.7, '#4D0812');
+    grad.addColorStop(1,   '#240306');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Subtle Gold Filigree texture
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(4, 4, w - 8, h - 8);
+    ctx.strokeRect(7, 7, w - 14, h - 14);
+
+    // Diagonal gold shimmer accents
+    const shim = ctx.createLinearGradient(0, 0, w, h);
+    shim.addColorStop(0,    'rgba(212,175,55,0)');
+    shim.addColorStop(0.45, 'rgba(212,175,55,0.18)');
+    shim.addColorStop(0.5,  'rgba(255,235,160,0.35)');
+    shim.addColorStop(0.55, 'rgba(212,175,55,0.18)');
+    shim.addColorStop(1,    'rgba(212,175,55,0)');
+    ctx.fillStyle = shim;
+    ctx.fillRect(0, 0, w, h);
+
+    // Elegant royal crest watermark
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#DFC7A9';
+    ctx.font = 'bold 15px "Playfair Display", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✦ ⚜ ✦', w / 2, h / 2 - 8);
+
+    ctx.fillStyle = 'rgba(245, 232, 192, 0.9)';
+    ctx.font = '600 8px "Cinzel", serif';
+    ctx.letterSpacing = '2px';
+    ctx.fillText('SCRATCH', w / 2, h / 2 + 12);
+  }
+
+  setTimeout(initScratch, 100);
+  window.addEventListener('resize', () => { if (!cleared) initScratch(); });
+
+  function scratch(clientX, clientY) {
+    const r = canvas.getBoundingClientRect();
+    const x = clientX - r.left;
+    const y = clientY - r.top;
+
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Trigger flower petal cascade on user touch/drag
+    const now = performance.now();
+    if (now - lastPetalTime > 90) {
+      lastPetalTime = now;
+      triggerPetalShower(clientX, clientY, 2);
+    }
+
+    checkCleared(clientX, clientY);
+  }
+
+  function checkCleared(clientX, clientY) {
+    if (cleared) return;
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let total = 0, transparent = 0;
+    for (let i = 3; i < data.length; i += 4) {
+      total++;
+      if (data[i] < 128) transparent++;
+    }
+    if (transparent / total > 0.50) {
+      cleared = true;
+      canvas.classList.add('cleared');
+      // Burst celebration of petals when card is fully revealed
+      const r = canvas.getBoundingClientRect();
+      triggerPetalShower(r.left + r.width / 2, r.top + r.height / 2, 16);
+
+      // If all 4 cleared, hide hint
+      const all = document.querySelectorAll('.scratch-canvas');
+      const done = [...all].every(c => c.classList.contains('cleared'));
+      if (done) {
+        const hint = document.getElementById('scratch-hint');
+        if (hint) {
+          hint.innerHTML = '✦ Revealed with Love ✦';
+          hint.style.animation = 'none';
+          hint.style.color = 'var(--gold-light)';
+        }
+      }
+    }
+  }
+
+  // Mouse events
+  canvas.addEventListener('mousedown', e => { 
+    drawing = true; 
+    scratch(e.clientX, e.clientY); 
+  });
+  window.addEventListener('mousemove', e => { 
+    if (!drawing) return; 
+    scratch(e.clientX, e.clientY); 
+  });
+  window.addEventListener('mouseup', () => { drawing = false; });
+
+  // Touch events (mobile-first)
+  canvas.addEventListener('touchstart', e => { 
+    e.preventDefault(); 
+    drawing = true; 
+    const t = e.touches[0]; 
+    scratch(t.clientX, t.clientY); 
+  }, { passive: false });
+  canvas.addEventListener('touchmove', e => { 
+    e.preventDefault(); 
+    if (!drawing) return; 
+    const t = e.touches[0]; 
+    scratch(t.clientX, t.clientY); 
+  }, { passive: false });
+  canvas.addEventListener('touchend', () => { drawing = false; });
+});
+
+
+/* ========================================
+   SCROLL REVEAL (IntersectionObserver)
+======================================== */
+const revealEls = document.querySelectorAll('.reveal');
+const timelineEvents = document.querySelectorAll('.timeline-event');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+revealEls.forEach(el => observer.observe(el));
+timelineEvents.forEach(el => observer.observe(el));
