@@ -135,6 +135,9 @@ function startExperience() {
   if (started) return;
   started = true;
 
+  // Unlock scrolling now that guest has tapped to enter
+  document.body.classList.remove('scroll-locked');
+
   // play video — pause on last frame
   video.muted = false;
   video.play().catch(() => { video.muted = true; video.play(); });

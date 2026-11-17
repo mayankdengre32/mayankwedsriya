@@ -20,7 +20,9 @@
       --ff-caps:     'Cinzel', serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html, body {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--velvet);
@@ -28,6 +30,13 @@
       font-family: var(--ff-serif);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* Lock scroll until guest taps to play */
+    body.scroll-locked {
+      overflow: hidden !important;
+      height: 100vh !important;
+      touch-action: none;
     }
 
     /* ===== SCROLLBAR ===== */
