@@ -128,6 +128,15 @@ const musicNote  = document.getElementById('music-note');
 
 let started = false;
 
+// Ensure 1st frame is loaded and rendered as the background under Tap to Play
+if (video) {
+  video.currentTime = 0.001;
+  const renderFirstFrame = () => {
+    video.currentTime = 0.001;
+  };
+  video.addEventListener('loadedmetadata', renderFirstFrame, { once: true });
+}
+
 tapOverlay.addEventListener('click', startExperience);
 tapOverlay.addEventListener('touchend', e => { e.preventDefault(); startExperience(); });
 
