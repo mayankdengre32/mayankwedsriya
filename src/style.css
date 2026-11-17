@@ -46,14 +46,18 @@
     /* ===== SECTION BASE ===== */
     section {
       position: relative; z-index: 2;
-      width: 100%; padding: 60px 20px;
+      width: 100%; max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px;
       text-align: center;
+      box-sizing: border-box;
     }
 
     /* ===== HERO — VIDEO SECTION ===== */
     #hero {
       position: relative;
       width: 100%; height: 100dvh;
+      max-width: 100%;
       overflow: hidden;
       padding: 0;
       display: flex; align-items: center; justify-content: center;
@@ -176,36 +180,41 @@
     /* ===== SECTION: NAMES ===== */
     #names-section {
       background: linear-gradient(180deg, var(--velvet) 0%, var(--velvet-mid) 100%);
-      padding: 80px 24px;
+      padding: 70px 24px;
+      overflow: hidden;
     }
     #names-section .pre-label {
       font-family: var(--ff-caps);
-      font-size: 10px;
-      letter-spacing: 5px;
+      font-size: clamp(9px, 2.5vw, 11px);
+      letter-spacing: clamp(3px, 1.2vw, 5px);
       color: var(--gold);
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     #names-section .couple-script {
       font-family: var(--ff-script);
-      font-size: clamp(52px, 16vw, 96px);
+      font-size: clamp(40px, 13vw, 78px);
       color: var(--gold-light);
       text-shadow: 0 4px 30px rgba(201,168,76,0.4);
-      line-height: 1.0;
+      line-height: 1.15;
+      padding: 0 10px;
+      word-break: break-word;
     }
     #names-section .ampersand {
       font-family: var(--ff-script);
-      font-size: clamp(32px, 10vw, 56px);
+      font-size: clamp(28px, 8vw, 48px);
       color: var(--crimson);
       display: block;
-      margin: -8px 0;
+      margin: 4px 0;
+      line-height: 1;
     }
     #names-section .wedding-date {
       margin-top: 24px;
       font-family: var(--ff-caps);
-      font-size: 13px;
-      letter-spacing: 4px;
-      color: rgba(201,168,76,0.7);
+      font-size: clamp(10px, 3vw, 13px);
+      letter-spacing: clamp(2px, 1vw, 4px);
+      color: rgba(201,168,76,0.85);
+      padding: 0 8px;
     }
 
     /* ===== GOLD FLORAL DIVIDER ===== */
@@ -564,6 +573,36 @@
     }
 
     /* ===== SCROLL REVEAL ===== */
+    .scroll-arrow {
+      width: 2px; height: 32px;
+      background: linear-gradient(to bottom, var(--gold-light), transparent);
+      margin: 0 auto;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(8px);
+        opacity: 1;
+      }
+    }
+    .scroll-pulse-text {
+      font-family: var(--ff-caps);
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      margin-bottom: 8px;
+      animation: pulseText 2.5s ease-in-out infinite;
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 0.7; transform: scale(0.98); }
+      50%      { opacity: 1; transform: scale(1.02); }
+    }
     .reveal {
       opacity: 0;
       transform: translateY(40px);
