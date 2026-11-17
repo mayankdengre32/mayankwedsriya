@@ -190,7 +190,6 @@
     #names-section {
       background: linear-gradient(180deg, var(--velvet) 0%, var(--velvet-mid) 100%);
       padding: 70px 24px;
-      overflow: hidden;
     }
     #names-section .pre-label {
       font-family: var(--ff-caps);
@@ -869,12 +868,12 @@
       width: clamp(100px, 28vw, 180px);
     }
     /* Positioning variants */
-    .flower-tl { top: -20px; left: -10px; transform: rotate(-15deg); }
-    .flower-tr { top: -20px; right: -10px; transform: rotate(15deg) scaleX(-1); }
-    .flower-bl { bottom: -20px; left: -10px; transform: rotate(15deg) scaleY(-1); }
-    .flower-br { bottom: -20px; right: -10px; transform: rotate(-15deg) scale(-1); }
-    .flower-cl { top: 50%; left: -20px; transform: translateY(-50%) rotate(-25deg); }
-    .flower-cr { top: 50%; right: -20px; transform: translateY(-50%) rotate(25deg) scaleX(-1); }
+    .flower-tl { top: 0; left: 0; transform: rotate(-15deg); }
+    .flower-tr { top: 0; right: 0; transform: rotate(15deg) scaleX(-1); }
+    .flower-bl { bottom: 0; left: 0; transform: rotate(15deg) scaleY(-1); }
+    .flower-br { bottom: 0; right: 0; transform: rotate(-15deg) scale(-1); }
+    .flower-cl { top: 50%; left: 0; transform: translateY(-50%) rotate(-25deg); }
+    .flower-cr { top: 50%; right: 0; transform: translateY(-50%) rotate(25deg) scaleX(-1); }
 
     /* float animation for flowers */
     .flower-float {

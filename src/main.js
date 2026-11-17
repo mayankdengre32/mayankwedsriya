@@ -234,10 +234,10 @@ function updateTimer() {
   const s = Math.floor((diff % 60000)    / 1000);
 
   const vals = {
-    days:  pad(d, 3),
-    hours: pad(h),
-    mins:  pad(m),
-    secs:  pad(s)
+    days:  pad(d, 2),
+    hours: pad(h, 2),
+    mins:  pad(m, 2),
+    secs:  pad(s, 2)
   };
 
   function setNum(el, key) {
