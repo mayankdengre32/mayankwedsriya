@@ -251,20 +251,20 @@ setInterval(updateTimer, 1000);
 /* ========================================
    SCRATCH-REVEAL CARDS (Royal Gilded Foil & Petal Shower)
 ======================================== */
-document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
-  const card  = canvas.parentElement;
-  const rect  = () => card.getBoundingClientRect();
-  const ctx   = canvas.getContext('2d');
+const scratchCanvas = document.getElementById('timer-scratch-canvas');
+if (scratchCanvas) {
+  const box = scratchCanvas.parentElement;
+  const ctx = scratchCanvas.getContext('2d');
   let drawing = false;
   let cleared = false;
   let lastPetalTime = 0;
 
   function initScratch() {
-    const r = rect();
-    const w = r.width || 90;
-    const h = r.height || 80;
-    canvas.width = w;
-    canvas.height = h;
+    const r = box.getBoundingClientRect();
+    const w = r.width || 360;
+    const h = r.height || 100;
+    scratchCanvas.width = w;
+    scratchCanvas.height = h;
 
     // Royal Deep Wine Velvet Foil Base
     const grad = ctx.createLinearGradient(0, 0, w, h);
@@ -275,17 +275,18 @@ document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle Gold Filigree texture
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.25)';
+    // Subtle Double Gold Border Filigree
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(4, 4, w - 8, h - 8);
-    ctx.strokeRect(7, 7, w - 14, h - 14);
+    ctx.strokeRect(5, 5, w - 10, h - 10);
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.18)';
+    ctx.strokeRect(8, 8, w - 16, h - 16);
 
     // Diagonal gold shimmer accents
     const shim = ctx.createLinearGradient(0, 0, w, h);
     shim.addColorStop(0,    'rgba(212,175,55,0)');
     shim.addColorStop(0.45, 'rgba(212,175,55,0.18)');
-    shim.addColorStop(0.5,  'rgba(255,235,160,0.35)');
+    shim.addColorStop(0.5,  'rgba(255,235,160,0.38)');
     shim.addColorStop(0.55, 'rgba(212,175,55,0.18)');
     shim.addColorStop(1,    'rgba(212,175,55,0)');
     ctx.fillStyle = shim;
@@ -294,33 +295,33 @@ document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
     // Elegant royal crest watermark
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = '#DFC7A9';
-    ctx.font = 'bold 15px "Playfair Display", serif';
+    ctx.font = 'bold 16px "Playfair Display", serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('✦ ⚜ ✦', w / 2, h / 2 - 8);
+    ctx.fillText('✦ ⚜ ✦', w / 2, h / 2 - 10);
 
-    ctx.fillStyle = 'rgba(245, 232, 192, 0.9)';
-    ctx.font = '600 8px "Cinzel", serif';
-    ctx.letterSpacing = '2px';
-    ctx.fillText('SCRATCH', w / 2, h / 2 + 12);
+    ctx.fillStyle = 'rgba(245, 232, 192, 0.95)';
+    ctx.font = '600 10px "Cinzel", serif';
+    ctx.letterSpacing = '3px';
+    ctx.fillText('SCRATCH TO REVEAL', w / 2, h / 2 + 12);
   }
 
   setTimeout(initScratch, 100);
   window.addEventListener('resize', () => { if (!cleared) initScratch(); });
 
   function scratch(clientX, clientY) {
-    const r = canvas.getBoundingClientRect();
+    const r = scratchCanvas.getBoundingClientRect();
     const x = clientX - r.left;
     const y = clientY - r.top;
 
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.arc(x, y, 26, 0, Math.PI * 2);
     ctx.fill();
 
     // Trigger flower petal cascade on user touch/drag
     const now = performance.now();
-    if (now - lastPetalTime > 90) {
+    if (now - lastPetalTime > 80) {
       lastPetalTime = now;
       triggerPetalShower(clientX, clientY, 2);
     }
@@ -330,35 +331,29 @@ document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
 
   function checkCleared(clientX, clientY) {
     if (cleared) return;
-    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    const data = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
     let total = 0, transparent = 0;
     for (let i = 3; i < data.length; i += 4) {
       total++;
       if (data[i] < 128) transparent++;
     }
-    if (transparent / total > 0.50) {
+    if (transparent / total > 0.45) {
       cleared = true;
-      canvas.classList.add('cleared');
-      // Burst celebration of petals when card is fully revealed
-      const r = canvas.getBoundingClientRect();
-      triggerPetalShower(r.left + r.width / 2, r.top + r.height / 2, 16);
+      scratchCanvas.classList.add('cleared');
+      const r = scratchCanvas.getBoundingClientRect();
+      triggerPetalShower(r.left + r.width / 2, r.top + r.height / 2, 20);
 
-      // If all 4 cleared, hide hint
-      const all = document.querySelectorAll('.scratch-canvas');
-      const done = [...all].every(c => c.classList.contains('cleared'));
-      if (done) {
-        const hint = document.getElementById('scratch-hint');
-        if (hint) {
-          hint.innerHTML = '✦ Revealed with Love ✦';
-          hint.style.animation = 'none';
-          hint.style.color = 'var(--gold-light)';
-        }
+      const hint = document.getElementById('scratch-hint');
+      if (hint) {
+        hint.innerHTML = '✦ Revealed with Love ✦';
+        hint.style.animation = 'none';
+        hint.style.color = 'var(--gold-light)';
       }
     }
   }
 
   // Mouse events
-  canvas.addEventListener('mousedown', e => { 
+  scratchCanvas.addEventListener('mousedown', e => { 
     drawing = true; 
     scratch(e.clientX, e.clientY); 
   });
@@ -369,20 +364,20 @@ document.querySelectorAll('.scratch-canvas').forEach((canvas, idx) => {
   window.addEventListener('mouseup', () => { drawing = false; });
 
   // Touch events (mobile-first)
-  canvas.addEventListener('touchstart', e => { 
+  scratchCanvas.addEventListener('touchstart', e => { 
     e.preventDefault(); 
     drawing = true; 
     const t = e.touches[0]; 
     scratch(t.clientX, t.clientY); 
   }, { passive: false });
-  canvas.addEventListener('touchmove', e => { 
+  scratchCanvas.addEventListener('touchmove', e => { 
     e.preventDefault(); 
     if (!drawing) return; 
     const t = e.touches[0]; 
     scratch(t.clientX, t.clientY); 
   }, { passive: false });
-  canvas.addEventListener('touchend', () => { drawing = false; });
-});
+  scratchCanvas.addEventListener('touchend', () => { drawing = false; });
+}
 
 
 /* ========================================

@@ -143,36 +143,41 @@
   </div>
 
   <div id="timer-scratch-wrap" class="timer-scratch-wrap reveal scale reveal-delay-3">
-    <div class="timer-grid">
+    <!-- Single luxury royal card containing all 4 countdown units -->
+    <div class="timer-single-box">
+      <canvas class="scratch-canvas" id="timer-scratch-canvas" data-cleared="false"></canvas>
 
-      <!-- DAYS -->
-      <div class="timer-card">
-        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
-        <span class="timer-num" id="t-days">000</span>
-        <span class="timer-label">Days</span>
+      <div class="timer-units-row">
+        <!-- DAYS -->
+        <div class="timer-unit">
+          <span class="timer-num" id="t-days">000</span>
+          <span class="timer-label">Days</span>
+        </div>
+
+        <span class="timer-divider-colon">:</span>
+
+        <!-- HOURS -->
+        <div class="timer-unit">
+          <span class="timer-num" id="t-hours">00</span>
+          <span class="timer-label">Hours</span>
+        </div>
+
+        <span class="timer-divider-colon">:</span>
+
+        <!-- MINUTES -->
+        <div class="timer-unit">
+          <span class="timer-num" id="t-mins">00</span>
+          <span class="timer-label">Minutes</span>
+        </div>
+
+        <span class="timer-divider-colon">:</span>
+
+        <!-- SECONDS -->
+        <div class="timer-unit">
+          <span class="timer-num" id="t-secs">00</span>
+          <span class="timer-label">Seconds</span>
+        </div>
       </div>
-
-      <!-- HOURS -->
-      <div class="timer-card">
-        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
-        <span class="timer-num" id="t-hours">00</span>
-        <span class="timer-label">Hours</span>
-      </div>
-
-      <!-- MINUTES -->
-      <div class="timer-card">
-        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
-        <span class="timer-num" id="t-mins">00</span>
-        <span class="timer-label">Minutes</span>
-      </div>
-
-      <!-- SECONDS -->
-      <div class="timer-card">
-        <canvas class="scratch-canvas" data-cleared="false" width="90" height="80"></canvas>
-        <span class="timer-num" id="t-secs">00</span>
-        <span class="timer-label">Seconds</span>
-      </div>
-
     </div>
     <p class="scratch-hint" id="scratch-hint">✦ Scratch to reveal ✦</p>
   </div>

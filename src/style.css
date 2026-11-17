@@ -256,58 +256,74 @@
       margin-bottom: 48px;
     }
 
-    /* scratch-reveal timer */
+    /* scratch-reveal single luxury timer box */
     .timer-scratch-wrap {
       position: relative;
-      display: inline-block;
-      border-radius: 20px;
-      padding: 10px;
-      background: radial-gradient(circle at 50% 50%, rgba(45,16,32,0.85), rgba(26,10,20,0.95));
-      border: 1px solid rgba(201,168,76,0.3);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(201,168,76,0.08);
-    }
-
-    .timer-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      max-width: 380px;
+      display: block;
+      max-width: 440px;
       margin: 0 auto;
-      position: relative; z-index: 1;
+      border-radius: 20px;
+      padding: 6px;
+      box-sizing: border-box;
     }
 
-    .timer-card {
-      background: linear-gradient(145deg, rgba(38,3,6,0.95), rgba(20,5,15,0.98));
-      border: 1.5px solid rgba(201,168,76,0.45);
-      border-radius: 14px;
-      padding: 20px 8px 16px;
+    .timer-single-box {
+      background: linear-gradient(145deg, rgba(38,3,6,0.96), rgba(20,5,15,0.98));
+      border: 1.5px solid rgba(201,168,76,0.5);
+      border-radius: 16px;
+      padding: 24px 12px;
       position: relative;
       overflow: hidden;
       box-shadow:
-        0 8px 25px rgba(0,0,0,0.7),
-        inset 0 1px 2px rgba(232,201,122,0.4),
-        inset 0 0 12px rgba(201,168,76,0.15);
+        0 10px 30px rgba(0,0,0,0.8),
+        inset 0 1px 2px rgba(232,201,122,0.5),
+        inset 0 0 16px rgba(201,168,76,0.18);
     }
 
-    .timer-card::before {
+    .timer-single-box::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(232,201,122,0.8), transparent);
+      background: linear-gradient(90deg, transparent, rgba(232,201,122,0.9), transparent);
     }
-    
-    .timer-card::after {
+
+    .timer-single-box::after {
       content: '';
-      position: absolute; inset: 3px;
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 10px;
+      position: absolute; inset: 4px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
       pointer-events: none;
+    }
+
+    .timer-units-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .timer-unit {
+      flex: 1;
+      text-align: center;
+    }
+
+    .timer-divider-colon {
+      font-family: var(--ff-display);
+      font-size: clamp(20px, 5vw, 30px);
+      color: rgba(201,168,76,0.6);
+      line-height: 1;
+      margin-top: -16px;
+      user-select: none;
     }
 
     /* scratch canvas overlay */
     .scratch-canvas {
       position: absolute; inset: 0;
-      border-radius: 12px;
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
       cursor: crosshair;
       z-index: 10;
       transition: opacity 0.5s ease;
@@ -317,10 +333,10 @@
 
     .timer-num {
       font-family: var(--ff-display);
-      font-size: clamp(32px, 9vw, 48px);
+      font-size: clamp(26px, 7vw, 40px);
       font-weight: 700;
       color: var(--cream);
-      text-shadow: 0 0 25px rgba(201,168,76,0.7), 0 2px 4px rgba(0,0,0,0.9);
+      text-shadow: 0 0 20px rgba(201,168,76,0.7), 0 2px 4px rgba(0,0,0,0.9);
       display: block;
       line-height: 1;
       letter-spacing: 1px;
@@ -337,8 +353,8 @@
 
     .timer-label {
       font-family: var(--ff-caps);
-      font-size: 9px;
-      letter-spacing: 3px;
+      font-size: clamp(8px, 2vw, 10px);
+      letter-spacing: 2px;
       color: var(--gold-light);
       text-transform: uppercase;
       margin-top: 8px;
