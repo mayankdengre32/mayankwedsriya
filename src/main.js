@@ -3,11 +3,22 @@ import './style.css';
 /* ========================================
    LOADER
 ======================================== */
+// Remove preloader smoothly
+function dismissLoader() {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 800);
+  }
+}
+
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hide');
-  }, 1200);
+  setTimeout(dismissLoader, 800);
 });
+// Fallback in case window load event already fired or is delayed
+setTimeout(dismissLoader, 2500);
 
 /* ========================================
    GOLD PARTICLES

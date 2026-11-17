@@ -76,12 +76,12 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: brightness(0.65) saturate(1.15);
-      transition: filter 0.6s ease;
+      filter: brightness(0.9) saturate(1.1);
+      transition: opacity 0.6s ease;
     }
 
-    #hero-video.playing { filter: brightness(0.85) saturate(1.25); }
-    #hero-video.ended   { filter: brightness(0.55) saturate(1.1); transition: filter 1.5s ease; }
+    #hero-video.playing { filter: brightness(1) saturate(1.1); }
+    #hero-video.ended   { filter: brightness(1) saturate(1.1); }
 
     /* dark vignette overlay */
     #hero::after {
@@ -95,14 +95,15 @@
 
     /* ---- TAP OVERLAY ---- */
     #tap-overlay {
-      position: absolute; inset: 0; z-index: 10;
+      position: absolute; inset: 0; z-index: 20;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       cursor: pointer;
       background: transparent;
+      pointer-events: auto;
     }
 
-    #tap-overlay.hidden { pointer-events: none; }
+    #tap-overlay.hidden { display: none !important; pointer-events: none !important; }
 
     .tap-ring-wrap {
       position: relative;
