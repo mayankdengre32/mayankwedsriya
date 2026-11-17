@@ -873,8 +873,8 @@
     .flower-tr { top: -20px; right: -10px; transform: rotate(15deg) scaleX(-1); }
     .flower-bl { bottom: -20px; left: -10px; transform: rotate(15deg) scaleY(-1); }
     .flower-br { bottom: -20px; right: -10px; transform: rotate(-15deg) scale(-1); }
-    .flower-cl { top: 50%; left: -30px; transform: translateY(-50%) rotate(-25deg); }
-    .flower-cr { top: 50%; right: -30px; transform: translateY(-50%) rotate(25deg) scaleX(-1); }
+    .flower-cl { top: 50%; left: -20px; transform: translateY(-50%) rotate(-25deg); }
+    .flower-cr { top: 50%; right: -20px; transform: translateY(-50%) rotate(25deg) scaleX(-1); }
 
     /* float animation for flowers */
     .flower-float {
@@ -892,4 +892,112 @@
       display: flex;
       position: relative;
       margin: 0;
+    }
+
+    /* ===== COMPREHENSIVE RESPONSIVE MEDIA QUERIES ===== */
+    @media (max-width: 480px) {
+      section {
+        padding: 48px 16px;
+      }
+
+      .event-cards-wrap {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .event-card {
+        padding: 16px 14px;
+      }
+
+      .timeline-wrap {
+        padding: 0 4px;
+      }
+
+      .event-side {
+        padding: 0 10px;
+      }
+
+      .event-name {
+        font-size: 16px;
+      }
+
+      .event-tag {
+        font-size: 8.5px;
+      }
+
+      .venue-card {
+        padding: 30px 16px;
+      }
+
+      .venue-name {
+        font-size: 19px;
+      }
+
+      .map-btn {
+        padding: 12px 24px;
+        font-size: 9px;
+      }
+
+      .timer-single-box {
+        padding: 18px 8px;
+      }
+
+      .timer-num {
+        font-size: clamp(22px, 6.5vw, 32px);
+      }
+
+      .timer-label {
+        font-size: 8px;
+        letter-spacing: 1.5px;
+      }
+
+      .timer-divider-colon {
+        font-size: 18px;
+        margin-top: -12px;
+      }
+
+      .flower-rose-single {
+        width: clamp(65px, 18vw, 100px);
+      }
+
+      .flower-rose-branch {
+        width: clamp(80px, 24vw, 130px);
+      }
+
+      .flower-cl { left: -10px; }
+      .flower-cr { right: -10px; }
+    }
+
+    @media (max-width: 360px) {
+      section {
+        padding: 40px 12px;
+      }
+
+      .tap-ring-wrap {
+        width: 110px;
+        height: 110px;
+      }
+
+      .tap-btn {
+        width: 62px;
+        height: 62px;
+      }
+
+      .tap-icon {
+        font-size: 22px;
+      }
+
+      .tap-label {
+        font-size: 9.5px;
+        letter-spacing: 3px;
+      }
+
+      .timer-num {
+        font-size: 20px;
+      }
+
+      .timer-label {
+        font-size: 7.5px;
+        letter-spacing: 1px;
+      }
     }
