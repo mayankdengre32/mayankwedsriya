@@ -13,7 +13,8 @@
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
   <link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
-  <!-- Media Preload for Instant Playback (Video prioritized) -->
+  <!-- Media Preload for Instant Playback & First Frame -->
+  <link rel="preload" href="https://res.cloudinary.com/dabmqmpld/video/upload/v1795005266/Video.jpg" as="image" />
   <link rel="preload" href="https://res.cloudinary.com/dabmqmpld/video/upload/f_auto,q_auto/v1795005266/Video.mp4" as="video" type="video/mp4" />
 
   <!-- Google Tag Manager -->
@@ -66,8 +67,8 @@
 <section id="hero">
 
   <video id="hero-video" 
-         src="https://res.cloudinary.com/dabmqmpld/video/upload/f_auto,q_auto/v1795005266/Video.mp4" 
-         poster="https://res.cloudinary.com/dabmqmpld/video/upload/so_0,f_auto,q_auto/v1795005266/Video.jpg"
+         src="https://res.cloudinary.com/dabmqmpld/video/upload/f_auto,q_auto/v1795005266/Video.mp4#t=0.001" 
+         poster="https://res.cloudinary.com/dabmqmpld/video/upload/v1795005266/Video.jpg"
          playsinline 
          muted 
          preload="auto"></video>

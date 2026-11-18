@@ -144,11 +144,18 @@ let started = false;
 
 // Ensure 1st frame is loaded and rendered as the background under Tap to Play
 if (video) {
-  video.currentTime = 0.001;
   const renderFirstFrame = () => {
-    video.currentTime = 0.001;
+    try {
+      if (video.currentTime === 0) {
+        video.currentTime = 0.001;
+      }
+    } catch (e) {}
   };
   video.addEventListener('loadedmetadata', renderFirstFrame, { once: true });
+  video.addEventListener('loadeddata', renderFirstFrame, { once: true });
+  if (video.readyState >= 1) {
+    renderFirstFrame();
+  }
 }
 
 tapOverlay.addEventListener('click', startExperience);
