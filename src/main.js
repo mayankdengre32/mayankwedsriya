@@ -354,12 +354,12 @@ if (scratchCanvas) {
     scratchCanvas.width = w;
     scratchCanvas.height = h;
 
-    // Royal Warm Brown Velvet Foil Base (#7B4028)
+    // Royal Deep Wine Velvet Foil Base
     const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0,   '#4A2516');
-    grad.addColorStop(0.3, '#7B4028');
-    grad.addColorStop(0.7, '#61311C');
-    grad.addColorStop(1,   '#261810');
+    grad.addColorStop(0,   '#3A040A');
+    grad.addColorStop(0.3, '#700D1A');
+    grad.addColorStop(0.7, '#4D0812');
+    grad.addColorStop(1,   '#240306');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
