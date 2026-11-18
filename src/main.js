@@ -219,6 +219,43 @@ function fadeAudio(audio, from, to, duration) {
   }, duration / steps);
 }
 
+// Stop audio and video when browser is closed, minimized, tab switched, or screen locked
+let wasMusicPlayingBeforeHide = false;
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (music && !music.paused) {
+      wasMusicPlayingBeforeHide = true;
+      music.pause();
+      musicNote.classList.remove('playing');
+      musicNote.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l4.27 4.27L19.54 18 4.27 3zM12 7V3h6v4h-6z"/></svg>';
+    }
+    if (video && !video.paused) {
+      video.pause();
+    }
+  } else {
+    // When returning to tab, resume only if it was playing before leaving
+    if (wasMusicPlayingBeforeHide && music) {
+      music.play().then(() => {
+        musicNote.classList.add('playing');
+        musicNote.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>';
+      }).catch(() => {});
+      wasMusicPlayingBeforeHide = false;
+    }
+  }
+});
+
+// Guarantee immediate pause when navigating away or closing window/tab
+window.addEventListener('pagehide', () => {
+  if (music) music.pause();
+  if (video) video.pause();
+});
+
+window.addEventListener('beforeunload', () => {
+  if (music) music.pause();
+  if (video) video.pause();
+});
+
 
 /* ========================================
    COUNTDOWN TIMER — target: 2 Dec 2026 10 PM IST
