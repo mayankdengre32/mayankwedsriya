@@ -172,19 +172,33 @@ function startExperience() {
     video.classList.add('ended');
   });
 
-  // hide overlay with fade
+  // hide overlay with fade and remove completely
   tapOverlay.style.transition = 'opacity 0.6s ease';
   tapOverlay.style.opacity    = '0';
   setTimeout(() => {
     tapOverlay.classList.add('hidden');
     tapOverlay.style.display = 'none';
+    if (tapOverlay.parentNode) {
+      tapOverlay.parentNode.removeChild(tapOverlay);
+    }
   }, 700);
 
-  // show scroll hint
-  setTimeout(() => {
-    const cue = document.getElementById('hero-scroll-cue');
-    if (cue) cue.style.opacity = '1';
-  }, 1000);
+  // Show sparkling scroll cue after tap overlay fades out
+  const cue = document.getElementById('hero-scroll-cue');
+  if (cue) {
+    setTimeout(() => {
+      cue.classList.add('visible');
+    }, 900);
+
+    // Clicking the cue scrolls smoothly to the invitation
+    cue.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const namesSec = document.getElementById('names-section');
+      if (namesSec) {
+        namesSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
 
   // start music
   music.volume = 0;
@@ -194,6 +208,17 @@ function startExperience() {
     musicNote.classList.add('playing');
   }).catch(() => {});
 }
+
+// Hide scroll cue when user scrolls down, restore if back at hero top
+window.addEventListener('scroll', () => {
+  const cue = document.getElementById('hero-scroll-cue');
+  if (!cue || !started) return;
+  if (window.scrollY > 50) {
+    cue.classList.remove('visible');
+  } else {
+    cue.classList.add('visible');
+  }
+}, { passive: true });
 
 // music toggle
 musicNote.addEventListener('click', () => {

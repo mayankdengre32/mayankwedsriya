@@ -80,10 +80,20 @@
     <div class="tap-label">Tap to Begin</div>
   </div>
 
-  <!-- Scroll hint after tap -->
-  <div id="hero-scroll-cue" style="position: absolute; z-index: 5; bottom: 30px; left: 0; right: 0; text-align: center; opacity: 0; transition: opacity 1s ease; pointer-events: none;">
-    <div class="scroll-pulse-text">Scroll</div>
-    <div class="scroll-arrow"></div>
+  <!-- Sparkling Scroll Cue (revealed after tap) -->
+  <div id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Scroll down to begin invitation">
+    <div class="scroll-sparkle-pill">
+      <span class="sparkle-star s-left">✦</span>
+      <span class="scroll-label">Scroll to Explore</span>
+      <span class="sparkle-star s-right">✦</span>
+      <div class="pill-shine-beam"></div>
+    </div>
+    <div class="scroll-indicator-arrow">
+      <svg viewBox="0 0 24 24" class="scroll-chevron-svg">
+        <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="scroll-aura-ring"></div>
   </div>
 
 </section>
