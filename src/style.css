@@ -879,20 +879,39 @@
       background: var(--velvet);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow: hidden;
       transition: opacity 0.8s ease, visibility 0.8s ease;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    #loader.hide { opacity: 0; visibility: hidden; }
+    #loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader-script {
       font-family: var(--ff-script);
-      font-size: 48px;
-      color: var(--gold);
-      animation: loaderFade 1.5s ease-in-out infinite alternate;
+      font-size: clamp(38px, min(12vw, 10vh), 72px);
+      line-height: 1.4;
+      padding: 12px 28px;
+      max-width: 92vw;
+      text-align: center;
+      white-space: nowrap;
+      overflow: visible;
+      display: inline-block;
+      background: linear-gradient(135deg, #FFF8DC 0%, #E8C97A 35%, #C9A84C 70%, #9A7230 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(201, 168, 76, 0.55));
+      animation: loaderGlow 2.2s ease-in-out infinite alternate;
     }
     .loader-bar {
-      width: 120px; height: 1px;
-      background: rgba(201,168,76,0.2);
-      margin-top: 20px;
-      position: relative; overflow: hidden;
+      width: clamp(90px, min(24vw, 15vh), 150px);
+      height: 1.5px;
+      background: rgba(201, 168, 76, 0.2);
+      margin-top: clamp(12px, 2.5vh, 22px);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
     }
     .loader-bar::after {
       content: '';
@@ -901,8 +920,40 @@
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       animation: loaderBar 1.2s ease-in-out infinite;
     }
-    @keyframes loaderFade { from { opacity: 0.4; } to { opacity: 1; } }
+    @keyframes loaderGlow {
+      0% {
+        opacity: 0.5;
+        filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.35));
+        transform: scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        filter: drop-shadow(0 4px 20px rgba(232, 201, 122, 0.75));
+        transform: scale(1.02);
+      }
+    }
     @keyframes loaderBar { to { left: 100%; } }
+
+    @media (max-height: 500px) {
+      .loader-script {
+        font-size: clamp(26px, 12vh, 42px);
+        padding: 4px 16px;
+      }
+      .loader-bar {
+        margin-top: 8px;
+        width: clamp(70px, 18vw, 100px);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .loader-script {
+        font-size: 34px;
+        padding: 6px 14px;
+      }
+      .loader-bar {
+        width: 80px;
+      }
+    }
 
     /* ===== PETALS ===== */
     .petal {
