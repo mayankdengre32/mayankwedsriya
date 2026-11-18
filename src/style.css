@@ -2,15 +2,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --crimson:     #8B1A2F;
-      --crimson-dark:#5C0A1A;
-      --crimson-mid: #A8243E;
+      --crimson:     #7B4028;
+      --crimson-dark:#4A2516;
+      --crimson-mid: #96502F;
       --gold:        #C9A84C;
       --gold-light:  #E8C97A;
       --gold-dark:   #9A7230;
-      --velvet:      #1A0A14;
-      --velvet-mid:  #2D1020;
-      --velvet-light:#3D1830;
+      --velvet:      #140C08;
+      --velvet-mid:  #261810;
+      --velvet-light:#3A2518;
       --cream:       #FDF6E3;
       --cream-dark:  #F5E8C0;
       --white:       #FFFFFF;
@@ -89,7 +89,7 @@
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at center,
         transparent 30%,
-        rgba(26,10,20,0.6) 100%);
+        rgba(20,12,8,0.6) 100%);
       pointer-events: none; z-index: 1;
     }
 
@@ -408,8 +408,8 @@
 
     /* ===== ITINERARY / TIMELINE ===== */
     #itinerary-section {
-      background: linear-gradient(180deg, var(--velvet-mid) 0%, var(--crimson-dark) 60%, var(--velvet-mid) 100%);
-      padding: 45px 24px 35px;
+      background: linear-gradient(180deg, var(--velvet-mid) 0%, var(--crimson-dark) 50%, var(--velvet-mid) 100%);
+      padding: 50px 24px 40px;
     }
 
     .timeline-wrap {
@@ -418,49 +418,54 @@
       position: relative;
     }
 
-    /* center vertical line */
+    /* center vertical line with golden shimmer */
     .timeline-wrap::before {
       content: '';
       position: absolute;
       left: 50%; transform: translateX(-50%);
       top: 0; bottom: 0;
-      width: 1px;
+      width: 2px;
       background: linear-gradient(to bottom,
-        transparent, rgba(201,168,76,0.4) 15%,
-        rgba(201,168,76,0.4) 85%, transparent);
+        transparent, 
+        rgba(201,168,76,0.15) 10%,
+        rgba(201,168,76,0.5) 50%,
+        rgba(201,168,76,0.15) 90%, 
+        transparent);
+      filter: drop-shadow(0 0 4px rgba(201,168,76,0.3));
     }
 
     .timeline-day {
-      margin-bottom: 30px;
+      margin-bottom: 36px;
     }
 
     .timeline-day-label {
       font-family: var(--ff-caps);
-      font-size: 10px;
-      letter-spacing: 4px;
+      font-size: 11px;
+      letter-spacing: 5px;
       color: var(--gold);
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       position: relative;
+      text-shadow: 0 0 20px rgba(201,168,76,0.4);
     }
     .timeline-day-label::after {
       content: '';
       display: block;
       width: 60px; height: 1px;
-      background: rgba(201,168,76,0.3);
-      margin: 8px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 10px auto 0;
     }
 
     .timeline-event {
       display: flex;
       align-items: flex-start;
       gap: 0;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
       position: relative;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
     }
     .timeline-event.visible {
       opacity: 1; transform: translateY(0);
@@ -483,6 +488,7 @@
       color: var(--gold-light);
       font-weight: 500;
       font-style: italic;
+      text-shadow: 0 2px 10px rgba(201,168,76,0.25);
     }
     .event-time {
       font-family: var(--ff-caps);
@@ -500,12 +506,24 @@
       flex-shrink: 0;
     }
     .event-dot {
-      width: 14px; height: 14px;
+      width: 16px; height: 16px;
       border-radius: 50%;
       background: radial-gradient(circle, var(--gold-light), var(--gold-dark));
-      border: 2px solid var(--velvet-mid);
-      box-shadow: 0 0 10px rgba(201,168,76,0.6);
+      border: 2.5px solid var(--velvet);
+      box-shadow: 
+        0 0 12px rgba(201,168,76,0.7),
+        0 0 24px rgba(201,168,76,0.3);
       flex-shrink: 0;
+      animation: dotPulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes dotPulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(201,168,76,0.5), 0 0 20px rgba(201,168,76,0.2);
+      }
+      50% {
+        box-shadow: 0 0 18px rgba(201,168,76,0.9), 0 0 36px rgba(201,168,76,0.4);
+      }
     }
 
     /* ===== VENUE SECTION ===== */
@@ -517,7 +535,7 @@
     .venue-card {
       max-width: 400px;
       margin: 0 auto;
-      background: linear-gradient(145deg, rgba(45,16,32,0.6), rgba(26,10,20,0.8));
+      background: linear-gradient(145deg, rgba(38,24,16,0.6), rgba(20,12,8,0.8));
       border: 1px solid rgba(201,168,76,0.25);
       border-radius: 20px;
       padding: 40px 28px;
@@ -648,7 +666,7 @@
       gap: 10px;
       padding: 9px 24px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 245, 220, 0.06) 45%, rgba(35, 5, 10, 0.4) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 245, 220, 0.06) 45%, rgba(20, 12, 8, 0.4) 100%);
       backdrop-filter: blur(18px) saturate(190%);
       -webkit-backdrop-filter: blur(18px) saturate(190%);
       border: 1px solid rgba(255, 240, 200, 0.45);
@@ -930,35 +948,47 @@
       100% { transform: translateY(105vh) translateX(var(--drift)) rotate(var(--rot)) scale(1.1); opacity: 0; }
     }
 
-    /* ===== EVENT CARDS (mobile stacked) ===== */
+    /* ===== EVENT CARDS (Premium Celebration Cards) ===== */
     .event-cards-wrap {
       max-width: 440px;
-      margin: 32px auto 0;
+      margin: 36px auto 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
     }
     .event-card {
       background: linear-gradient(145deg,
-        rgba(92,10,26,0.5) 0%,
-        rgba(26,10,20,0.9) 100%);
-      border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 16px;
-      padding: 20px 14px;
+        rgba(123,64,40,0.35) 0%,
+        rgba(20,12,8,0.85) 100%);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 18px;
+      padding: 24px 16px;
       position: relative;
       overflow: hidden;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease, border-color 0.4s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .event-card:hover, .event-card:active {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(201,168,76,0.2);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 
+        0 16px 40px rgba(201,168,76,0.25),
+        0 0 20px rgba(201,168,76,0.15);
+      border-color: rgba(201,168,76,0.6);
     }
+    /* Top gold accent line with animated shimmer */
     .event-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: cardShimmerLine 3s ease-in-out infinite;
+    }
+    @keyframes cardShimmerLine {
+      0%, 100% { background-position: -100% 0; }
+      50% { background-position: 200% 0; }
     }
     .event-card::after {
       content: '';
@@ -979,9 +1009,25 @@
       font-size: 12px;
       letter-spacing: 6px;
       color: var(--gold);
-      margin-bottom: 12px;
-      opacity: 0.85;
-      text-shadow: 0 0 10px rgba(201,168,76,0.6);
+      margin-bottom: 14px;
+      opacity: 0.9;
+      text-shadow: 0 0 12px rgba(201,168,76,0.6);
+      animation: ornamentGlow 3s ease-in-out infinite;
+    }
+    @keyframes ornamentGlow {
+      0%, 100% { text-shadow: 0 0 8px rgba(201,168,76,0.4); opacity: 0.7; }
+      50% { text-shadow: 0 0 18px rgba(201,168,76,0.9), 0 0 30px rgba(232,201,122,0.3); opacity: 1; }
+    }
+    .event-card-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(201,168,76,0.4));
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.08); }
     }
     .venue-icon-svg {
       width: 42px;
@@ -997,10 +1043,17 @@
     }
     .event-card-name {
       font-family: var(--ff-display);
-      font-size: 18px;
-      color: var(--gold-light);
+      font-size: 20px;
+      background: linear-gradient(90deg, #E8C97A, #FFF5D0, #C9A84C);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-style: italic;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      animation: cardNameShimmer 4s linear infinite;
+    }
+    @keyframes cardNameShimmer {
+      to { background-position: 200% center; }
     }
     .event-card-date {
       font-family: var(--ff-caps);
