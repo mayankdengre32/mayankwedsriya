@@ -59,8 +59,10 @@ setTimeout(dismissLoader, 2500);
       ctx.save();
       ctx.globalAlpha = this.alpha * 0.6;
       ctx.fillStyle   = '#C9A84C';
-      ctx.shadowBlur  = 6;
-      ctx.shadowColor = '#E8C97A';
+      if (this.r > 1.2) {
+        ctx.shadowBlur  = 4;
+        ctx.shadowColor = '#E8C97A';
+      }
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.fill();
@@ -68,7 +70,8 @@ setTimeout(dismissLoader, 2500);
     }
   }
 
-  for (let i = 0; i < 80; i++) {
+  const particleCount = window.innerWidth < 768 ? 40 : 65;
+  for (let i = 0; i < particleCount; i++) {
     const p = new Particle();
     p.life = Math.random() * p.maxLife;
     particles.push(p);
