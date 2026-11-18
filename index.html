@@ -9,8 +9,12 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
 
+  <!-- Preconnect to Cloudinary CDN for instant connection -->
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+  <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
   <!-- Media Preload for Instant Playback -->
-  <link rel="preload" href="/video.mp4" as="video" type="video/mp4" />
+  <link rel="preload" href="https://res.cloudinary.com/dabmqmpld/video/upload/f_auto,q_auto/v1795005266/Video.mp4" as="video" type="video/mp4" />
   <link rel="preload" href="/music.mp3" as="audio" type="audio/mpeg" />
 
   <!-- Google Tag Manager -->
@@ -62,7 +66,12 @@
 ════════════════════════════════════════════════ -->
 <section id="hero">
 
-  <video id="hero-video" src="/video.mp4#t=0.001" playsinline muted preload="auto"></video>
+  <video id="hero-video" 
+         src="https://res.cloudinary.com/dabmqmpld/video/upload/f_auto,q_auto/v1795005266/Video.mp4" 
+         poster="https://res.cloudinary.com/dabmqmpld/video/upload/so_0,f_auto,q_auto/v1795005266/Video.jpg"
+         playsinline 
+         muted 
+         preload="auto"></video>
 
   <!-- TAP OVERLAY -->
   <div id="tap-overlay">
